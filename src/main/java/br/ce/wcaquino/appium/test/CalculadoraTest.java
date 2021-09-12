@@ -1,4 +1,4 @@
-package br.ce.wcaquino.appium;
+package br.ce.wcaquino.appium.test;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
