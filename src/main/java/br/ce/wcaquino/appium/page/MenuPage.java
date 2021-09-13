@@ -1,14 +1,28 @@
 package br.ce.wcaquino.appium.page;
 
-import br.ce.wcaquino.appium.core.DriverFactory;
-import io.appium.java_client.MobileElement;
+import br.ce.wcaquino.appium.core.BasePage;
 
-public class MenuPage extends DriverFactory {
+public class MenuPage extends BasePage {
 
     public void acessarFormulario(){
-
-        //selecionando o formulário
-        MobileElement el1 = (MobileElement) driver.findElementByXPath("//android.widget.TextView[@text='Formulário']");
-        el1.click();
+        clicarPorTexto("Formulário");
     }
+
+    public void acessarSplash() {
+        clicarPorTexto("Splash");
+    }
+
+    public void acessarAlerta() {
+        clicarPorTexto("Alertas");
+    }
+
+    public void acessarTabs() {
+        clicarPorTexto("Abas");
+    }
+
+    public void acessarAccordion() {
+        clicarPorTexto("Accordion");
+    }
+
+
 }

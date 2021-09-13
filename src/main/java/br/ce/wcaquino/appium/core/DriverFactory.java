@@ -31,6 +31,7 @@ public class DriverFactory {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        //utilizando espera implícita
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 

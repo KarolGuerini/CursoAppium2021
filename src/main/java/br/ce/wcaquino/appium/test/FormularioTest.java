@@ -1,28 +1,30 @@
 package br.ce.wcaquino.appium.test;
 
+import br.ce.wcaquino.appium.core.BasePage;
+import br.ce.wcaquino.appium.core.BaseTest;
 import br.ce.wcaquino.appium.core.DriverFactory;
-import br.ce.wcaquino.appium.core.Generics;
 import br.ce.wcaquino.appium.page.FormularioPage;
 import br.ce.wcaquino.appium.page.MenuPage;
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileElement;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 
-public class FormularioTest extends DriverFactory{
+import static br.ce.wcaquino.appium.core.DriverFactory.getDriver;
+import static br.ce.wcaquino.appium.core.DriverFactory.killDriver;
 
-    private Generics gnr = new Generics();
+public class FormularioTest extends BaseTest {
+
+
     public static MenuPage menu = new MenuPage();
     public static FormularioPage formPage = new FormularioPage();
 
+
     @BeforeAll
     static void beforeAll() {
-        driver = getDriver();
-
+        getDriver();
         menu.acessarFormulario();
     }
 
@@ -37,19 +39,24 @@ public class FormularioTest extends DriverFactory{
         formPage.escreverNome("karol");
 
         Assertions.assertEquals("karol",formPage.obterNome());
+        gerarScreenShot();
     }
 
     @Test
     public void deveInteragirComCombo() throws MalformedURLException {
 
+        formPage.limparDados();
+
         formPage.selecionarCombo("Nintendo Switch");
 
         Assertions.assertEquals("Nintendo Switch", formPage.obterValorCombo());
+        gerarScreenShot();
 
     }
 
     @Test
     public void deveInteragirComSwitchECheckBox() throws MalformedURLException {
+        formPage.limparDados();
 
         Assertions.assertTrue(formPage.statusCheck("checked").equals("false"));
         Assertions.assertTrue(formPage.statusSwitch("checked").equals("true"));
@@ -59,6 +66,7 @@ public class FormularioTest extends DriverFactory{
 
         Assertions.assertTrue(formPage.statusCheck("checked").equals("true"));
         Assertions.assertTrue(formPage.statusSwitch("checked").equals("false"));
+        gerarScreenShot();
 
     }
 
@@ -86,9 +94,24 @@ public class FormularioTest extends DriverFactory{
 
         formPage.verificandoCheckbox("Checkbox: Marcado");
         Assertions.assertEquals("Checkbox: Marcado", formPage.verificandoConsole("Checkbox: Marcado"));
+        gerarScreenShot();
 
     }
+    @Test
+    public void deveRealizarCadastroDemorado() throws MalformedURLException {
 
+        formPage.limparDados();
+
+        formPage.escreverNome("karol");
+
+        formPage.clicarEmSalvarDemorado();
+
+        //utilizando espera explícita
+        WebDriverWait wait = new WebDriverWait(getDriver(),10);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(("//*[@text='Nome: karol']"))));
+
+        Assertions.assertEquals("Nome: karol", formPage.verificarNome("Nome: karol"));
+    }
 }
 
 

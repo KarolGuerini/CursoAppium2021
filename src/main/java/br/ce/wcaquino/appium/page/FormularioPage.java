@@ -1,18 +1,19 @@
 package br.ce.wcaquino.appium.page;
 
+import br.ce.wcaquino.appium.core.BasePage;
 import br.ce.wcaquino.appium.core.DriverFactory;
-import br.ce.wcaquino.appium.core.Generics;
 import io.appium.java_client.MobileBy;
 
 public class FormularioPage extends DriverFactory {
 
-    private Generics gnr = new Generics();
+    private BasePage dsl = new BasePage(); //usando o modelo DSL na base page
+    
 
     public void escreverNome(String nome){
-        gnr.escrever(MobileBy.AccessibilityId("nome"), nome);
+        dsl.escrever(MobileBy.AccessibilityId("nome"), nome);
     }
     public String obterNome(){
-        return gnr.obterTexto(MobileBy.AccessibilityId("nome"));
+        return dsl.obterTexto(MobileBy.AccessibilityId("nome"));
     }
     public void selecionarCombo(String texto){
         driver.findElementByAccessibilityId("console").click();
@@ -39,6 +40,9 @@ public class FormularioPage extends DriverFactory {
 
     public void clicarEmSalvar(){
         driver.findElementByXPath("//*[@text='SALVAR']").click();
+    }
+    public void clicarEmSalvarDemorado(){
+        driver.findElementByXPath("//*[@text='SALVAR DEMORADO']").click();
     }
 
     public String verificarNome(String nome){
