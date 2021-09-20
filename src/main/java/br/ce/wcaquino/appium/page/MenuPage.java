@@ -17,12 +17,47 @@ public class MenuPage extends BasePage {
     }
 
     public void acessarTabs() {
+
         clicarPorTexto("Abas");
     }
 
     public void acessarAccordion() {
         clicarPorTexto("Accordion");
     }
+
+    public void acessarCliques() {
+
+        clicarPorTexto("Cliques");
+    }
+
+    public void acessarOpcaoEscondida() {
+
+        clicarPorTexto("Opção bem escondida");
+    }
+
+
+    public void acessarSwipe(){
+        clicarPorTexto("Swipe");
+    }
+
+    public void acessarSwipeList(){
+
+        clicarPorTexto("Swipe List");
+    }
+
+    public void acessarDragAndDrop(){
+
+        clicarPorTexto("Drag and drop");
+    }
+
+    public void acessarSeuBarrigaHibrido(){
+
+        clicarPorTexto("SeuBarriga Nativo");
+    }
+
+
+
+
 
 
 }

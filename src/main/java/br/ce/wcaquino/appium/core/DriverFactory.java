@@ -23,8 +23,8 @@ public class DriverFactory {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("app", "/home/karol/IdeaProjects/cursoAppiumWA/src/main/resources/CTAppium_1_2.apk");
         desiredCapabilities.setCapability("platformName", "Android");
-        desiredCapabilities.setCapability("platformVersion", "7.1.1");
-        desiredCapabilities.setCapability("deviceName", "0032320614");
+        desiredCapabilities.setCapability("platformVersion", "10");
+        desiredCapabilities.setCapability("deviceName", "ZF5233GT7H");
 
         try {
             driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), desiredCapabilities);

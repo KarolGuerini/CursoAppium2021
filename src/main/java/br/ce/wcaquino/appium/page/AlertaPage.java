@@ -5,9 +5,9 @@ import org.openqa.selenium.By;
 
 public class AlertaPage extends BasePage {
 
-    public void clicarAlertaConfirm() {
+    public void clicarAlerta(String texto) {
 
-        clicarPorTexto("ALERTA CONFIRM");
+        clicarPorTexto(texto);
     }
 
     public String obterMensagemAlerta(){
@@ -25,3 +25,4 @@ public class AlertaPage extends BasePage {
     }
 
 }
+

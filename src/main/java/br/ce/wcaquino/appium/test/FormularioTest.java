@@ -19,7 +19,7 @@ public class FormularioTest extends BaseTest {
 
 
     public static MenuPage menu = new MenuPage();
-    public static FormularioPage formPage = new FormularioPage();
+    public static FormularioPage page = new FormularioPage();
 
 
     @BeforeAll
@@ -28,7 +28,7 @@ public class FormularioTest extends BaseTest {
         menu.acessarFormulario();
     }
 
-    @AfterAll
+    //@AfterAll
     static void afterAll() {
         killDriver();
     }
@@ -36,36 +36,36 @@ public class FormularioTest extends BaseTest {
     @Test
     public void devePreencherCampoTexto()  {
 
-        formPage.escreverNome("karol");
+        page.escreverNome("karol");
 
-        Assertions.assertEquals("karol",formPage.obterNome());
+        Assertions.assertEquals("karol",page.obterNome());
         gerarScreenShot();
     }
 
     @Test
     public void deveInteragirComCombo() throws MalformedURLException {
 
-        formPage.limparDados();
+        page.limparDados();
 
-        formPage.selecionarCombo("Nintendo Switch");
+        page.selecionarCombo("Nintendo Switch");
 
-        Assertions.assertEquals("Nintendo Switch", formPage.obterValorCombo());
+        Assertions.assertEquals("Nintendo Switch", page.obterValorCombo());
         gerarScreenShot();
 
     }
 
     @Test
     public void deveInteragirComSwitchECheckBox() throws MalformedURLException {
-        formPage.limparDados();
+        page.limparDados();
 
-        Assertions.assertTrue(formPage.statusCheck("checked").equals("false"));
-        Assertions.assertTrue(formPage.statusSwitch("checked").equals("true"));
+        Assertions.assertTrue(page.statusCheck("checked").equals("false"));
+        Assertions.assertTrue(page.statusSwitch("checked").equals("true"));
 
-        formPage.clique("check");
-        formPage.clique("switch");
+        page.clique("check");
+        page.clique("switch");
 
-        Assertions.assertTrue(formPage.statusCheck("checked").equals("true"));
-        Assertions.assertTrue(formPage.statusSwitch("checked").equals("false"));
+        Assertions.assertTrue(page.statusCheck("checked").equals("true"));
+        Assertions.assertTrue(page.statusSwitch("checked").equals("false"));
         gerarScreenShot();
 
     }
@@ -73,45 +73,73 @@ public class FormularioTest extends BaseTest {
     @Test
     public void deveRealizarCadastro() throws MalformedURLException {
 
-        formPage.limparDados();
+        page.limparDados();
 
-        formPage.escreverNome("karol");
+        page.escreverNome("karol");
 
-        formPage.selecionarCombo("Nintendo Switch");
+        page.selecionarCombo("Nintendo Switch");
 
-        formPage.clique("check");
-        formPage.clique("switch");
+        page.clique("check");
+        page.clique("switch");
 
-        formPage.clicarEmSalvar();
+        page.clicarEmSalvar();
 
-        Assertions.assertEquals("Nome: karol", formPage.verificarNome("Nome: karol"));
+        Assertions.assertEquals("Nome: karol", page.verificarNome("Nome: karol"));
 
-        formPage.verificandoConsole("Console: switch");
-        Assertions.assertEquals("Console: switch", formPage.verificandoConsole("Console: switch"));
+        page.verificandoConsole("Console: switch");
+        Assertions.assertEquals("Console: switch", page.verificandoConsole("Console: switch"));
 
-        formPage.verificandoSwitch("Switch: Off");
-        Assertions.assertEquals("Switch: Off", formPage.verificandoConsole("Switch: Off"));
+        page.verificandoSwitch("Switch: Off");
+        Assertions.assertEquals("Switch: Off", page.verificandoConsole("Switch: Off"));
 
-        formPage.verificandoCheckbox("Checkbox: Marcado");
-        Assertions.assertEquals("Checkbox: Marcado", formPage.verificandoConsole("Checkbox: Marcado"));
+        page.verificandoCheckbox("Checkbox: Marcado");
+        Assertions.assertEquals("Checkbox: Marcado", page.verificandoConsole("Checkbox: Marcado"));
         gerarScreenShot();
 
     }
     @Test
     public void deveRealizarCadastroDemorado() throws MalformedURLException {
 
-        formPage.limparDados();
+        page.limparDados();
 
-        formPage.escreverNome("karol");
+        page.escreverNome("karol");
 
-        formPage.clicarEmSalvarDemorado();
+        page.clicarEmSalvarDemorado();
 
         //utilizando espera explícita
         WebDriverWait wait = new WebDriverWait(getDriver(),10);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(("//*[@text='Nome: karol']"))));
 
-        Assertions.assertEquals("Nome: karol", formPage.verificarNome("Nome: karol"));
+        Assertions.assertEquals("Nome: karol", page.verificarNome("Nome: karol"));
     }
+
+    @Test
+    public void deveAlterarData(){
+        page.clicarPorTexto("01/01/2000");
+        esperar(2000);
+        page.clicarPorTexto("20");
+        page.clicarPorTexto("OK");
+        Assertions.assertTrue(page.verificarTexto("20/2/2000"));
+    }
+
+    @Test
+    public void deveAletrarTime(){
+        page.clicarPorTexto("06:00");
+        esperar(1000);
+        page.clique("3");
+        page.clique("35");
+        page.clicarPorTexto("OK");
+        Assertions.assertTrue(page.verificarTexto("3:35"));
+
+    }
+    @Test
+    public void deveInteragirComSeekBar(){
+
+        page.clicarSeekBar(0.50);
+        page.clicarEmSalvar();
+        Assertions.assertTrue(page.verificarTexto("Slider: 51"));
+    }
+
 }
 
 

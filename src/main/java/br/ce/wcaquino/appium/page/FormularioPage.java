@@ -3,6 +3,9 @@ package br.ce.wcaquino.appium.page;
 import br.ce.wcaquino.appium.core.BasePage;
 import br.ce.wcaquino.appium.core.DriverFactory;
 import io.appium.java_client.MobileBy;
+import io.appium.java_client.MobileElement;
+
+import static br.ce.wcaquino.appium.test.FormularioTest.page;
 
 public class FormularioPage extends DriverFactory {
 
@@ -59,6 +62,20 @@ public class FormularioPage extends DriverFactory {
     }
     public String verificandoCheckbox(String console){
         return driver.findElementByXPath("//android.widget.TextView[@text='"+console+"']").getText();
+    }
+    public void clicarPorTexto(String texto){
+        driver.findElementByXPath("//*[@text='"+texto+"']").click();
+    }
+
+    public boolean verificarTexto(String texto){
+         driver.findElementByXPath("//android.widget.TextView[@text='"+texto+"']");
+        return true;
+    }
+    public void clicarSeekBar(double posicao){
+        MobileElement seek = driver.findElement(MobileBy.AccessibilityId("slid"));
+        int y = seek.getLocation().y + (seek.getSize().height / 2);
+        int x = (int) (seek.getLocation().x + (seek.getSize().width * posicao));
+        dsl.tapByCoordinates(x,y);
     }
 
 
